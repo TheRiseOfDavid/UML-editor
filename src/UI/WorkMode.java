@@ -28,6 +28,7 @@ public class WorkMode extends JButton {
             @Override
             public void actionPerformed(ActionEvent e) {
                 canvas.setShapeType(type);
+                System.out.println("type is " + type);
                 setBackground(Color.BLACK);
             }
         });
