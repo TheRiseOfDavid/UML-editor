@@ -2,7 +2,8 @@ package Line;
 
 import javax.swing.*;
 
-import Shape.WorkShape;
+import Shape.DrawShape;
+import base.DrawModel;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +11,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Select extends WorkLine {
+public class Select extends DrawLine {
     private Shape shape;
 
     public Select(int x1, int y1, int x2, int y2) {
@@ -22,11 +23,16 @@ public class Select extends WorkLine {
         this.shape = new Rectangle(x, y, width, height);
     }
 
-    public boolean isContains(WorkShape otherShape) {
-        if (shape.contains(otherShape.getShape().getBounds2D())) {
-            return true;
+    public boolean isContains(DrawModel otherModel) {
+        if (otherModel.getDrawType() != DrawModel.DrawType.Shape) {
+            return false;
         }
-        return false;
+        DrawShape otherShape = (DrawShape) otherModel;
+        if (!shape.contains(otherShape.getShape().getBounds2D())) {
+            return false;
+        }
+        otherShape.isSelected(true);
+        return true;
     }
 
     @Override

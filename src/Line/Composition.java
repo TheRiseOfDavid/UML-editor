@@ -2,7 +2,7 @@ package Line;
 
 import javax.swing.*;
 
-import Shape.WorkShape;
+import Shape.DrawShape;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.geom.*;
 
-public class Composition extends WorkLine {
+public class Composition extends DrawLine {
     public Composition(int x1, int y1, int x2, int y2) {
         super(x1, y1, x2, y2);
     }

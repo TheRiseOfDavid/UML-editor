@@ -3,7 +3,7 @@ import javax.swing.*;
 import UI.DrawingCanvas;
 import UI.Sidebar;
 import UI.WorkMode;
-
+import UI.Menubar;
 import java.awt.*;
 import java.io.File;
 
@@ -13,9 +13,11 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         JFrame frame = new JFrame("UML Editor");
-
         // 生成 canvas
         DrawingCanvas canvas = new DrawingCanvas();
+
+        // 生成 menubar
+        Menubar menubar = new Menubar(canvas);
 
         // 生成 sidebar
         WorkMode selectMode = new WorkMode("./src/img/select.png", canvas,
@@ -36,6 +38,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(UIWidth, UIHeight);
+            frame.setJMenuBar(menubar);
 
             sidebar.addButton(selectMode);
             sidebar.addButton(associationMode);
@@ -45,6 +48,7 @@ public class Main {
             sidebar.addButton(ovalMode);
 
             frame.setLayout(new BorderLayout());
+
             frame.add(sidebar.getPanel(), BorderLayout.WEST);
             frame.add(canvas.getPanel(), BorderLayout.EAST);
             frame.setVisible(true);

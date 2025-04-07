@@ -2,7 +2,7 @@ package Shape;
 
 import javax.swing.*;
 
-import Shape.WorkShape;
+import Shape.DrawShape;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +10,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rect extends WorkShape {
+public class Rect extends DrawShape {
 
     public Rect(int x, int y) {
         this.shape = new Rectangle(x, y, this.shapeSize, this.shapeSize);

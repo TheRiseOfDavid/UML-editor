@@ -2,7 +2,7 @@ package Line;
 
 import javax.swing.*;
 
-import Shape.WorkShape;
+import Shape.DrawShape;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +10,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Association extends WorkLine {
+public class Association extends DrawLine {
     public Association(int x1, int y1, int x2, int y2) {
         super(x1, y1, x2, y2);
     }
