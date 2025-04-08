@@ -13,11 +13,15 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         JFrame frame = new JFrame("UML Editor");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(UIWidth, UIHeight);
+
         // 生成 canvas
         DrawingCanvas canvas = new DrawingCanvas();
 
         // 生成 menubar
         Menubar menubar = new Menubar(frame, canvas);
+        frame.setJMenuBar(menubar);
 
         // 生成 sidebar
         WorkMode selectMode = new WorkMode("./src/img/select.png", canvas,
@@ -39,9 +43,6 @@ public class Main {
 
         // 在更新 gui 的時候，怕 multi-thread 同時控制 UI 導致出錯，因此用這 function 包住，保證 thread safely
         SwingUtilities.invokeLater(() -> {
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(UIWidth, UIHeight);
-            frame.setJMenuBar(menubar);
 
             sidebar.addButton(selectMode);
             sidebar.addButton(associationMode);
