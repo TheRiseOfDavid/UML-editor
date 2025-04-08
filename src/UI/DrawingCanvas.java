@@ -5,6 +5,7 @@ import javax.swing.*;
 import Line.*;
 import Shape.*;
 import Shape.Composite;
+import base.DrawLabel;
 import base.DrawModel;
 import java.awt.*;
 import java.awt.event.*;
@@ -255,4 +256,17 @@ public class DrawingCanvas extends JPanel {
         repaint();
     }
 
+    public void executeLabelAction(String labelTitle, DrawLabel.ShapeType shapeType, Color color, int fontsize) {
+        // 新增 composite
+        if (currentType != ModeType.selectMode)
+            return;
+        if (currMenuAction != MenuAction.label)
+            return;
+        if (selectedModels.size() != 1)
+            return;
+
+        DrawShape shape = (DrawShape) selectedModels.get(0);
+        shape.setLabel(new DrawLabel(labelTitle, shapeType, fontsize, color));
+        repaint();
+    }
 }

@@ -23,7 +23,7 @@ public class Main {
         WorkMode selectMode = new WorkMode("./src/img/select.png", canvas,
                 DrawingCanvas.ModeType.selectMode);
         selectMode.setBackground(Color.BLACK);
-        canvas.setShapeType(DrawingCanvas.ModeType.selectMode);
+        canvas.setModeType(DrawingCanvas.ModeType.selectMode);
 
         WorkMode associationMode = new WorkMode("./src/img/associate.png", canvas,
                 DrawingCanvas.ModeType.associationMode);

@@ -8,10 +8,15 @@ import Shape.DrawShape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.awt.*;
 
 import UI.DrawingCanvas;
 import UI.DrawingCanvas.ModeType;
+import base.DrawLabel;
+
+import java.util.Map;
+import java.util.HashMap;
 
 public class Menubar extends JMenuBar {
     JMenu fileMenu = new JMenu("File");
@@ -52,7 +57,13 @@ public class Menubar extends JMenuBar {
         gbc.gridy = 1;
         formPanel.add(shapeComboBox, gbc);
 
-        String[] colorOptions = { "Yellow", "Red", "Green", "Blue" };
+        Map<String, Color> colorMap = new HashMap<>();
+        colorMap.put("Yellow", Color.YELLOW);
+        colorMap.put("Red", Color.RED);
+        colorMap.put("Green", Color.GREEN);
+        colorMap.put("Blue", Color.BLUE);
+
+        String[] colorOptions = { "Red", "Green", "Blue" };
         JComboBox<String> colorComboBox = new JComboBox<>(colorOptions);
         gbc.gridy = 2;
         formPanel.add(colorComboBox, gbc);
@@ -68,8 +79,18 @@ public class Menubar extends JMenuBar {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String selectedColorName = (String) colorComboBox.getSelectedItem();
+                DrawLabel.ShapeType shapeType = DrawLabel.ShapeType.None;
+                if (shapeComboBox.getSelectedItem() == "Rect") {
+                    shapeType = DrawLabel.ShapeType.Rect;
+                } else if (shapeComboBox.getSelectedItem() == "Oral") {
+                    shapeType = DrawLabel.ShapeType.Oral;
+                }
+
                 dialog.dispose();
-                canvas.repaint();
+                canvas.executeLabelAction(nameField.getText(), shapeType,
+                        colorMap.getOrDefault(selectedColorName, Color.WHITE),
+                        Integer.parseInt(fontSizeField.getText()));
             }
         });
         buttonPanel.add(okButton);

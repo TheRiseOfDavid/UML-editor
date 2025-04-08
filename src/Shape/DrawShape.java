@@ -6,13 +6,17 @@ import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
+
+import base.DrawLabel;
 import base.DrawModel;
 
 abstract public class DrawShape implements DrawModel {
-    protected Shape shape, labelShape;
+    protected Shape shape;
+    protected DrawLabel label;
+    protected int x, y;
     protected int shapeSize = 50;
     protected boolean drawPort = false;
-    protected int x, y;
+    protected boolean drawLabel = false;
 
     public DrawShape(int x, int y) {
         this.x = x;
@@ -56,13 +60,26 @@ abstract public class DrawShape implements DrawModel {
         }
     }
 
+    public void setLabel(DrawLabel drawLabel) {
+        this.label = drawLabel;
+    }
+
+    public void paintLabelTo(Graphics2D g2) {
+        label.paintTo(this.x, this.y, g2);
+    }
+
     @Override
     public void draw(Graphics2D g2) {
+        this.paintShapeTo(g2);
         if (this.drawPort) {
             this.paintPortTo(g2);
             this.drawPort = false;
         }
-        this.paintShapeTo(g2);
+        if (this.label != null) {
+            System.out.println(label);
+            this.paintLabelTo(g2);
+        }
+
     };
 
     @Override
