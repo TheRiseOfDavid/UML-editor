@@ -8,7 +8,6 @@ import Shape.Composite;
 import base.DrawModel;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +40,7 @@ public class DrawingCanvas extends JPanel {
         none,
         group,
         ungroup,
+        label,
     }
 
     private MenuAction currMenuAction = MenuAction.none;
@@ -79,7 +79,6 @@ public class DrawingCanvas extends JPanel {
     }
 
     public DrawingCanvas() {
-
         setPreferredSize(new Dimension(UIWidth, UIHeight));
         setBackground(Color.BLACK);
 
@@ -134,24 +133,26 @@ public class DrawingCanvas extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 x2 = e.getX();
                 y2 = e.getY();
-                // for (DrawModel shape : models) {
-                // if (shape.isSelected(x2, y2)) {
-                // selectedModels.add(shape);
-                // }
-                // }
-                if (isDragged == false) {
-                    return;
+
+                // 用於 line mode 去連接第二個物件
+                if (currentType != DrawingCanvas.ModeType.selectMode) {
+                    for (DrawModel model : models) {
+                        if (model.isSelected(x2, y2)) {
+                            selectedModels.add(model);
+                        }
+                    }
                 }
-                isDragged = false;
 
                 switch (currentType) {
                     case selectMode:
-                        if (select != null) {
-                            select = new Select(x1, y1, x2, y2);
-                            for (DrawModel model : models) {
-                                if (select.isContains(model)) {
-                                    selectedModels.add(model);
-                                }
+                        if (isDragged == false) {
+                            return;
+                        }
+                        isDragged = false;
+                        select = new Select(x1, y1, x2, y2);
+                        for (DrawModel model : models) {
+                            if (select.isContains(model)) {
+                                selectedModels.add(model);
                             }
                         }
                         select = null;
@@ -165,6 +166,7 @@ public class DrawingCanvas extends JPanel {
                         }
                         break;
                     case generalizationMode:
+                        System.out.println(selectedModels);
                         Generalization general = new Generalization(x1, y1, x2, y2);
                         if (selectedModels.size() == 2
                                 && general.isValid(selectedModels.get(0), selectedModels.get(1))) {
@@ -184,6 +186,7 @@ public class DrawingCanvas extends JPanel {
                         break;
                 }
                 repaint();
+
             }
         });
 
@@ -195,6 +198,14 @@ public class DrawingCanvas extends JPanel {
                 isDragged = true;
                 switch (currentType) {
                     case selectMode:
+                        if (selectedModels.size() > 0) {
+                            for (DrawModel model : selectedModels) {
+                                model.move(x2 - x1, y2 - y1);
+                            }
+                            // 必須重新更新，否則之後拖移的位置會跟基礎點相同
+                            x1 = x2;
+                            y1 = y2;
+                        }
                         select = new Select(x1, y1, x2, y2);
                         break;
                     default:
@@ -203,7 +214,6 @@ public class DrawingCanvas extends JPanel {
                 repaint();
             }
         });
-
     }
 
     public void executeGroupAction() {
@@ -213,6 +223,11 @@ public class DrawingCanvas extends JPanel {
         if (currMenuAction != MenuAction.group)
             return;
         Composite composite = new Composite(models, selectedModels);
+        System.out.println("Create compositive object ");
+        System.out.println(models);
+        System.out.println(selectedModels);
+        System.out.println(selectedModels.get(0) == models.get(0));
+
         models.removeAll(selectedModels);
         selectedModels.clear();
 
@@ -227,15 +242,13 @@ public class DrawingCanvas extends JPanel {
             return;
         if (currMenuAction != MenuAction.ungroup)
             return;
-
-        System.out.println("ungroup " + selectedModels);
         if (selectedModels.size() != 1)
             return;
-        else if (!(selectedModels.get(0) instanceof Composite))
+        if (!(selectedModels.get(0) instanceof Composite))
             return;
+
         Composite composite = (Composite) selectedModels.get(0);
         composite.isSelected(false);
-        System.out.print(composite.destory() + "\n");
         models.addAll(composite.destory());
         models.remove(composite);
         selectedModels.clear();

@@ -13,6 +13,7 @@ import java.util.List;
 public class Rect extends DrawShape {
 
     public Rect(int x, int y) {
+        super(x, y);
         this.shape = new Rectangle(x, y, this.shapeSize, this.shapeSize);
     }
 
@@ -30,5 +31,12 @@ public class Rect extends DrawShape {
         ports.add(new Point(bounds.x + bounds.width / 2, bounds.y + bounds.height)); // 下中
         ports.add(new Point(bounds.x + bounds.width, bounds.y + bounds.height)); // 右下
         return ports;
+    }
+
+    @Override
+    public void move(int dx, int dy) {
+        this.x += dx;
+        this.y += dy;
+        this.shape = new Rectangle(this.x, this.y, this.shapeSize, this.shapeSize);
     }
 }

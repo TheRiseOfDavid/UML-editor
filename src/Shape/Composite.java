@@ -10,8 +10,10 @@ import java.awt.*;
 
 public class Composite extends DrawShape {
     protected List<DrawModel> models = new ArrayList<>();
+    protected int width, height;
 
     public Composite(List<DrawModel> ModelsInCanvas, List<DrawModel> selectedModels) {
+        super(0, 0);
         int x1 = Integer.MAX_VALUE, y1 = Integer.MAX_VALUE, x2 = Integer.MIN_VALUE, y2 = Integer.MIN_VALUE;
         for (DrawModel selectedModel : selectedModels) {
             this.models.add(selectedModel);
@@ -25,10 +27,10 @@ public class Composite extends DrawShape {
             x2 = Math.max(x2, bounds.x + bounds.width);
             y2 = Math.max(y2, bounds.y + bounds.height);
         }
-        int x = Math.min(x1, x2);
-        int y = Math.min(y1, y2);
-        int width = Math.abs(x1 - x2);
-        int height = Math.abs(y1 - y2);
+        this.x = Math.min(x1, x2);
+        this.y = Math.min(y1, y2);
+        this.width = Math.abs(x1 - x2);
+        this.height = Math.abs(y1 - y2);
         this.shape = new Rectangle(x, y, width, height);
     }
 
@@ -76,6 +78,16 @@ public class Composite extends DrawShape {
                 model.draw(g2);
             }
 
+        }
+    }
+
+    @Override
+    public void move(int dx, int dy) {
+        this.x += dx;
+        this.y += dy;
+        this.shape = new Rectangle(x, y, width, height);
+        for (DrawModel model : models) {
+            model.move(dx, dy);
         }
     }
 }

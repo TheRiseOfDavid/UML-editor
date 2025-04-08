@@ -9,9 +9,15 @@ import java.util.List;
 import base.DrawModel;
 
 abstract public class DrawShape implements DrawModel {
-    protected Shape shape;
+    protected Shape shape, labelShape;
     protected int shapeSize = 50;
     protected boolean drawPort = false;
+    protected int x, y;
+
+    public DrawShape(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public Shape getShape() {
         return this.shape;
@@ -63,5 +69,8 @@ abstract public class DrawShape implements DrawModel {
     public DrawModel.DrawType getDrawType() {
         return DrawModel.DrawType.Shape;
     }
+
+    @Override
+    abstract public void move(int dx, int dy);
 
 }

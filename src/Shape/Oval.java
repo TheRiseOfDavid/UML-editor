@@ -35,4 +35,11 @@ public class Oval extends DrawShape {
         ports.add(new Point((int) centerX, (int) (centerY + radiusY))); // 下
         return ports;
     }
+
+    @Override
+    public void move(int dx, int dy) {
+        this.x += dx;
+        this.y += dy;
+        this.shape = new Ellipse2D.Double(x, y, this.shapeSize, this.shapeSize);
+    }
 }

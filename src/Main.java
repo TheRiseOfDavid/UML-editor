@@ -17,11 +17,14 @@ public class Main {
         DrawingCanvas canvas = new DrawingCanvas();
 
         // 生成 menubar
-        Menubar menubar = new Menubar(canvas);
+        Menubar menubar = new Menubar(frame, canvas);
 
         // 生成 sidebar
         WorkMode selectMode = new WorkMode("./src/img/select.png", canvas,
                 DrawingCanvas.ModeType.selectMode);
+        selectMode.setBackground(Color.BLACK);
+        canvas.setShapeType(DrawingCanvas.ModeType.selectMode);
+
         WorkMode associationMode = new WorkMode("./src/img/associate.png", canvas,
                 DrawingCanvas.ModeType.associationMode);
         WorkMode generalizationMode = new WorkMode("./src/img/general.png", canvas,

@@ -45,4 +45,9 @@ public class Select extends DrawLine {
         g2.draw(shape);
         return;
     }
+
+    @Override
+    public void draw(Graphics2D g2) {
+        this.PaintTo(g2);
+    };
 }
