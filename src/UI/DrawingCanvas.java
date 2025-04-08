@@ -25,7 +25,7 @@ public class DrawingCanvas extends JPanel {
     private boolean isDragged = false;
 
     // 用於知道我現在要畫哪個圖形
-    public enum ShapeType {
+    public enum ModeType {
         selectMode,
         associationMode,
         generalizationMode,
@@ -34,7 +34,7 @@ public class DrawingCanvas extends JPanel {
         ovalMode,
     }
 
-    private ShapeType currentType = ShapeType.selectMode;
+    private ModeType currentType = ModeType.selectMode;
 
     // 用於知道我現在要畫哪個圖形
     public enum MenuAction {
@@ -49,7 +49,7 @@ public class DrawingCanvas extends JPanel {
         return this;
     }
 
-    public void setShapeType(ShapeType type) {
+    public void setModeType(ModeType type) {
         this.currentType = type;
     }
 
@@ -62,7 +62,7 @@ public class DrawingCanvas extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        if (currentType == ShapeType.selectMode && select != null) {
+        if (currentType == ModeType.selectMode && select != null) {
             select.draw(g2);
         } else {
             select = null;
@@ -208,7 +208,7 @@ public class DrawingCanvas extends JPanel {
 
     public void executeGroupAction() {
         // 新增 composite
-        if (currentType != ShapeType.selectMode)
+        if (currentType != ModeType.selectMode)
             return;
         if (currMenuAction != MenuAction.group)
             return;
@@ -223,7 +223,7 @@ public class DrawingCanvas extends JPanel {
 
     // 刪除 composite
     public void executeUngroupAction() {
-        if (currentType != ShapeType.selectMode)
+        if (currentType != ModeType.selectMode)
             return;
         if (currMenuAction != MenuAction.ungroup)
             return;

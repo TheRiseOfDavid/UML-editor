@@ -10,7 +10,7 @@ public class WorkMode extends JButton {
     int width = 90;
     int height = 90;
 
-    public WorkMode(String imgPath, DrawingCanvas canvas, DrawingCanvas.ShapeType type) throws Exception {
+    public WorkMode(String imgPath, DrawingCanvas canvas, DrawingCanvas.ModeType type) throws Exception {
         // 設定 button UI
         if (!this.CheckImage(imgPath)) {
             throw new Exception("the img path doesn't exists.");
@@ -27,7 +27,7 @@ public class WorkMode extends JButton {
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                canvas.setShapeType(type);
+                canvas.setModeType(type);
                 System.out.println("type is " + type);
                 setBackground(Color.BLACK);
             }

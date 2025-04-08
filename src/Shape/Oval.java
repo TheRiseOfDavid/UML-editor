@@ -13,6 +13,7 @@ import java.util.List;
 public class Oval extends DrawShape {
 
     public Oval(int x, int y) {
+        super(x, y);
         this.shape = new Ellipse2D.Double(x, y, this.shapeSize, this.shapeSize);
     }
 

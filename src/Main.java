@@ -21,17 +21,17 @@ public class Main {
 
         // 生成 sidebar
         WorkMode selectMode = new WorkMode("./src/img/select.png", canvas,
-                DrawingCanvas.ShapeType.selectMode);
+                DrawingCanvas.ModeType.selectMode);
         WorkMode associationMode = new WorkMode("./src/img/associate.png", canvas,
-                DrawingCanvas.ShapeType.associationMode);
+                DrawingCanvas.ModeType.associationMode);
         WorkMode generalizationMode = new WorkMode("./src/img/general.png", canvas,
-                DrawingCanvas.ShapeType.generalizationMode);
+                DrawingCanvas.ModeType.generalizationMode);
         WorkMode compositionMode = new WorkMode("./src/img/composite.png", canvas,
-                DrawingCanvas.ShapeType.compositionMode);
+                DrawingCanvas.ModeType.compositionMode);
         WorkMode rectMode = new WorkMode("./src/img/rect.png", canvas,
-                DrawingCanvas.ShapeType.rectMode);
+                DrawingCanvas.ModeType.rectMode);
         WorkMode ovalMode = new WorkMode("./src/img/oval.png", canvas,
-                DrawingCanvas.ShapeType.ovalMode);
+                DrawingCanvas.ModeType.ovalMode);
         Sidebar sidebar = new Sidebar(100, UIHeight);
 
         // 在更新 gui 的時候，怕 multi-thread 同時控制 UI 導致出錯，因此用這 function 包住，保證 thread safely
