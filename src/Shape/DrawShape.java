@@ -29,10 +29,8 @@ abstract public class DrawShape implements DrawModel {
     @Override
     public boolean isSelected(int x, int y) {
         if (this.shape.contains(x, y)) {
-            drawPort = true;
             return true;
         }
-        drawPort = false;
         return false;
     }
 

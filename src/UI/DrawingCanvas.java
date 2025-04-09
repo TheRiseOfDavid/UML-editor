@@ -75,7 +75,13 @@ public class DrawingCanvas extends JPanel {
         }
         // 畫被選中的圖形
         for (DrawModel model : selectedModels) {
-            model.draw(g2);
+            if (model.getDrawType() == DrawModel.DrawType.Shape) {
+                DrawShape shape = (DrawShape) model;
+                shape.isSelected(true);
+                shape.draw(g2);
+                shape.isSelected(false);
+            }
+
         }
     }
 
@@ -101,11 +107,19 @@ public class DrawingCanvas extends JPanel {
                     case associationMode:
                     case generalizationMode:
                     case compositionMode:
+                        DrawModel selectedModel = null;
                         for (DrawModel model : models) {
                             if (model.isSelected(x1, y1)) {
-                                selectedModels.add(model);
+                                selectedModel = model;
                             }
                         }
+                        if (selectedModel != null) {
+                            // 將圖層位置改移到最上方
+                            models.remove(selectedModel);
+                            models.add(selectedModel);
+                            selectedModels.add(selectedModel);
+                        }
+
                         break;
                     default:
                         break;

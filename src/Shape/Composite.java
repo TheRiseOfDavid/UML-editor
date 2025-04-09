@@ -57,11 +57,9 @@ public class Composite extends DrawShape {
     public boolean isSelected(int x, int y) {
         for (DrawModel model : models) {
             if (model.isSelected(x, y)) {
-                this.drawPort = true;
                 return true;
             }
         }
-        this.drawPort = false;
         return false;
     }
 
