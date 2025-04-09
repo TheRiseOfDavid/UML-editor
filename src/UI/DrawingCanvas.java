@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DrawingCanvas extends JPanel {
     static final int UIWidth = 800;
-    static final int UIHeight = 700;
+    static final int UIHeight = 600;
     // 存在於這個 canvas 的 model
     private List<DrawModel> models = new ArrayList<>();
     // 被選中的圖形
