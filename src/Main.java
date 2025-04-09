@@ -12,8 +12,7 @@ public class Main {
     static final int UIHeight = 600;
 
     public static void main(String[] args) throws Exception {
-        Font font = UIManager.getFont("Label.font");
-        System.out.println("Current font: " + font);
+
         JFrame frame = new JFrame("UML Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(UIWidth, UIHeight);
@@ -59,5 +58,8 @@ public class Main {
             frame.add(canvas.getPanel(), BorderLayout.EAST);
             frame.setVisible(true);
         });
+
+        System.out.println("frame.getSize(): " + frame.getSize());
+        System.out.println("frame.getContentPane().getSize(): " + frame.getContentPane().getSize());
     }
 }
