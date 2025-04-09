@@ -12,7 +12,10 @@ public class Main {
     static final int UIHeight = 600;
 
     public static void main(String[] args) throws Exception {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
         JFrame frame = new JFrame("UML Editor");
+        frame.setSize((int) (screenSize.width * 0.8), (int) (screenSize.height * 0.8));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(UIWidth, UIHeight);
 
