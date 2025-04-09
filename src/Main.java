@@ -56,10 +56,9 @@ public class Main {
 
             frame.add(sidebar.getPanel(), BorderLayout.WEST);
             frame.add(canvas.getPanel(), BorderLayout.EAST);
+            frame.pack();
             frame.setVisible(true);
         });
 
-        System.out.println("frame.getSize(): " + frame.getSize());
-        System.out.println("frame.getContentPane().getSize(): " + frame.getContentPane().getSize());
     }
 }
