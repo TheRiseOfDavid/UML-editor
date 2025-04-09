@@ -6,7 +6,6 @@ import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
-
 import base.DrawLabel;
 import base.DrawModel;
 
