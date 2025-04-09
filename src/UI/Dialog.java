@@ -92,6 +92,14 @@ public class Dialog extends JDialog {
         this.setVisible(false);
     }
 
+    // 讓 Dialog 出現
+    public void display() {
+        this.setLocationRelativeTo(parent); // 當被按下按鈕後，在決定在哪個地方出現
+        okButton.addActionListener(new OkButtonListener());
+        cancelButton.addActionListener(new CancelButtonListener());
+        this.setVisible(true); // 顯示對話框
+    }
+
     private class OkButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -115,13 +123,6 @@ public class Dialog extends JDialog {
         public void actionPerformed(ActionEvent e) {
             dispose();
         }
-    }
-
-    public void display() {
-        this.setLocationRelativeTo(parent); // 當被按下按鈕後，在決定在哪個地方出現
-        okButton.addActionListener(new OkButtonListener());
-        cancelButton.addActionListener(new CancelButtonListener());
-        this.setVisible(true); // 顯示對話框
     }
 
 }
