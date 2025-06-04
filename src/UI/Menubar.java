@@ -1,11 +1,12 @@
 package UI;
 
 import javax.swing.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.*;
+import Action.*; 
 
 public class Menubar extends JMenuBar {
     private JMenu fileMenu = new JMenu("File");
@@ -18,6 +19,8 @@ public class Menubar extends JMenuBar {
     private static final int Height = 30;
     private JFrame parent;
     private DrawingCanvas canvas;
+    Map<String, MenuCommand> commandMap = new HashMap<>();
+
 
     public Menubar(JFrame parent, DrawingCanvas canvas) {
         this.add(fileMenu);
@@ -32,34 +35,27 @@ public class Menubar extends JMenuBar {
         editMenu.add(labelItem);
         dialog = new Dialog(parent, canvas);
 
-        groupItem.addActionListener(new GroupItemListener());
-        ungroupItem.addActionListener(new UngroupItemListener());
-        labelItem.addActionListener(new LabelItemListener());
+        groupItem.addActionListener(new MenuActionListener());
+        groupItem.setActionCommand("group");
+        ungroupItem.addActionListener(new MenuActionListener());
+        ungroupItem.setActionCommand("ungroup");
+        labelItem.addActionListener(new MenuActionListener());
+        labelItem.setActionCommand("label");
+
+        commandMap.put("group", new GroupCommand(canvas));
+        commandMap.put("ungroup", new UnGroupCommand(canvas));
+        commandMap.put("label", new LabelCommand(canvas, dialog));
     }
 
-    private class GroupItemListener implements ActionListener {
+    private class MenuActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            canvas.setMenuAction(DrawingCanvas.MenuAction.group);
-            canvas.executeGroupAction();
+            String cmdName = e.getActionCommand(); 
+            MenuCommand cmd = commandMap.get(cmdName);
+            if (cmd != null) {
+                cmd.execute();
+            }
         }
     }
-
-    private class UngroupItemListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            canvas.setMenuAction(DrawingCanvas.MenuAction.ungroup);
-            canvas.executeUngroupAction();
-        }
-    }
-
-    private class LabelItemListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            canvas.setMenuAction(DrawingCanvas.MenuAction.label);
-            // 這是 call Menubar class 的
-            dialog.display();
-        }
-    }
-
 }
+
